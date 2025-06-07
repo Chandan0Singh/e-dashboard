@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const navigate = useNavigate();
+
     const signup = async () => {
-        console.log("SignUp", { name, email, password });
+        // console.log("SignUp", { name, email, password });
         let result = await fetch("http://localhost:5000/register", {
             method: 'post',
             body: JSON.stringify({ name, email, password }),
@@ -15,8 +18,17 @@ const SignUp = () => {
             }
         })
         result = await result.json();
-        console.log(result);
+        // console.log(result);
+        localStorage.setItem("user", JSON.stringify(result));
+        navigate('/')
     }
+
+    useEffect(() => {
+        const auth = localStorage.getItem('user')
+        if (auth) {
+            navigate('/')
+        }
+    })
 
     return (
         <div className="w-screen flex flex-col gap-4 justify-center items-center" >
