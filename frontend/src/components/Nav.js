@@ -17,7 +17,7 @@ const Nav = () => {
             {auth ? <ul className="flex gap-4 bg-gray-800">
                 <li className="no-bullets text-l p-4"><Link className="no-underline " to='/'> Home </Link></li>
                 <li className="no-bullets text-l p-4"><Link className="no-underline " to='/add-product'> Add Product </Link></li>
-                <li className="no-bullets text-l p-4"><Link className="no-underline " to='/update-product'> Update Product </Link></li>
+                <li className="no-bullets text-l p-4"><Link className="no-underline " to='/products'> Update Product </Link></li>
                 <li className="no-bullets text-l p-4"><Link className="no-underline " to='/profile'> Profile </Link></li>
                 <li className="no-bullets text-l p-4" onClick={logout}><Link className="no-underline " to='/logout'> Logout {JSON.parse(auth).name}</Link></li>
             </ul> : 

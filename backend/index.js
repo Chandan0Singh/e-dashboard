@@ -2,11 +2,11 @@ const express = require('express');
 const cors = require('cors');
 require('./db/config');
 const User = require('./db/user');
+const Product = require('./db/product');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-
 
 app.post('/register', async (req, res) => {
     let user = new User(req.body);
@@ -17,7 +17,6 @@ app.post('/register', async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
-
     if (req.body.password && req.body.email) {
         let user = await User.findOne(req.body).select("-password");
         if (user) {
@@ -27,6 +26,21 @@ app.post('/login', async (req, res) => {
         }
     }else{
         res.send({ result: "enter both email and password" })
+    }
+})
+
+app.post('/add-product', async(req, res)=>{
+    let product = new Product(req.body);
+    let result = await product.save();
+    res.send(result);
+})
+
+app.get('/products', async(req, res)=>{
+    let product = await Product.find();
+    if(product){
+        res.send(product)
+    }else{
+        res.send({Product : "no Product Found"})
     }
 })
 
