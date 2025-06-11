@@ -15,6 +15,16 @@ const ProductList = () => {
 
     console.log("product", products)
 
+    const deleteProduct = async (id) =>{
+        let result = await fetch(`http://localhost:5000/product/${id}`,{
+            method:"Delete"
+        })
+        result = await result.json()
+        if(result){
+            getProducts();
+        }
+    }
+
     return (
         <div className="m-8">
             <h2 className="text-center font-bold text-xl mb-4">Product List</h2>
@@ -25,15 +35,17 @@ const ProductList = () => {
                         <th className="border border-blue-300 px-4 py-2">Name</th>
                         <th className="border border-blue-300 px-4 py-2">Price</th>
                         <th className="border border-blue-300 px-4 py-2">Category</th>
+                        <th className="border border-blue-300 px-4 py-2">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     {products.map((item, index) => (
                         <tr key={index}>
-                            <td className="border border-blue-300 px-4 py-2">{index}</td>
+                            <td className="border border-blue-300 px-4 py-2">{index + 1}</td>
                             <td className="border border-blue-300 px-4 py-2">{item.name}</td>
                             <td className="border border-blue-300 px-4 py-2">{item.price}</td>
                             <td className="border border-blue-300 px-4 py-2">{item.category}</td>
+                            <td className="border border-blue-300 px-4 py-2"><button className='btn' onClick={()=>deleteProduct(item._id)}>Delete</button></td>
                         </tr>
                     ))}
                 </tbody>
