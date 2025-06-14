@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const ProductList = () => {
     const [products, setProducts] = useState([])
@@ -35,7 +36,7 @@ const ProductList = () => {
                         <th className="border border-blue-300 px-4 py-2">Name</th>
                         <th className="border border-blue-300 px-4 py-2">Price</th>
                         <th className="border border-blue-300 px-4 py-2">Category</th>
-                        <th className="border border-blue-300 px-4 py-2">Delete</th>
+                        <th className="border border-blue-300 px-4 py-2">Operation</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,7 +46,10 @@ const ProductList = () => {
                             <td className="border border-blue-300 px-4 py-2">{item.name}</td>
                             <td className="border border-blue-300 px-4 py-2">{item.price}</td>
                             <td className="border border-blue-300 px-4 py-2">{item.category}</td>
-                            <td className="border border-blue-300 px-4 py-2"><button className='btn' onClick={()=>deleteProduct(item._id)}>Delete</button></td>
+                            <td className="border border-blue-300 px-4 py-2">
+                                <button className='btn me-4' onClick={()=>deleteProduct(item._id)}>Delete</button>
+                                <Link to={`/update/${item._id}`} className='btn'><button>Update</button></Link>
+                                </td>
                         </tr>
                     ))}
                 </tbody>
