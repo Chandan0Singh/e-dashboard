@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 
 
 const UpdateProduct = () => {
@@ -8,6 +8,8 @@ const UpdateProduct = () => {
     const [category, setCategory] = useState("");
     const [company, setCompany] = useState("");
     const params = useParams();
+    const navigate = useNavigate();
+
 
     useEffect(()=>{
         getProductData();
@@ -23,9 +25,17 @@ const UpdateProduct = () => {
         setCompany(result.company);
     }
 
-    // const onSubmit = async () => {
-    //     console.log(name, price, category, company);
-    // }
+    const UpdateProduct = async ()=>{
+        let result = await fetch(`http://localhost:5000/product/${params.id}`, {
+            method: 'Put',
+            body: JSON.stringify({name, price, category ,company }),
+            headers:{
+                'Content-Type': "application/json"
+            }
+        });
+        result = await result.json()
+        navigate('/products')
+    }
 
 
     return (
@@ -63,7 +73,7 @@ const UpdateProduct = () => {
                     />
                 </div>
                 <button
-                    // onClick={onSubmit}
+                    onClick={UpdateProduct}
                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                 >
                     Update
