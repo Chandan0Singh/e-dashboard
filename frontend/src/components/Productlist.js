@@ -9,7 +9,13 @@ const ProductList = () => {
     }, [])
 
     const getProducts = async () => {
-        let result = await fetch('http://localhost:5000/products')
+        let result = await fetch('http://localhost:5000/products', {
+        method: 'GET',
+        headers: {
+            // 'Authorization': `Bearer ${JSON.parse(token)}`
+        }
+    }
+        )
         result = await result.json()
         setProducts(result)
     }

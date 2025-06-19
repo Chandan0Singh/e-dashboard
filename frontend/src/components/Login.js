@@ -16,11 +16,14 @@ const Login = () => {
             }
         });
         result = await result.json();
-        if (result.name) {
-            localStorage.setItem('user', JSON.stringify(result))
+        
+        if (result.user) {
+            localStorage.setItem('user', JSON.stringify(result.user))
+            localStorage.setItem('auth', JSON.stringify(result.auth))
             navigate('/')
         } else {
             alert('please enter valid details')
+            console.log("Login failed. Response:"+ JSON.stringify(result));
         }
     }
 
