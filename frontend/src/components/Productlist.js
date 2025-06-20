@@ -12,7 +12,7 @@ const ProductList = () => {
         let result = await fetch('http://localhost:5000/products', {
         method: 'GET',
         headers: {
-            // 'Authorization': `Bearer ${JSON.parse(token)}`
+            'Authorization': JSON.parse(localStorage.getItem('token'))
         }
     }
         )
